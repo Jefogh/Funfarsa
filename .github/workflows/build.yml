@@ -23,16 +23,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Install Node.js
+    - name: Run Flet App and Export as Web
+      run: |
+        python main.py --web --output-dir=web
+
+    - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'
 
-    - name: Build Flet Web App
-      run: |
-        python -m flet main.py --web --output-dir=web
-
-    - name: Set up Capacitor project
+    - name: Install Capacitor and create Android project
       run: |
         npm install -g @capacitor/cli
         npx cap init fletApp "com.example.fletapp" --web-dir=web
